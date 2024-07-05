@@ -23,7 +23,7 @@ Start the client
 ```bash
 cd cohere-ai-chatbot/client
 npm install
-npm npm run dev
+npm run dev
 ```
 
 Start the server
