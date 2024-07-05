@@ -39,8 +39,8 @@ const Chatbot = () => {
   return (
     <CustomPaper>
       <ChatbotHeader onMinimize={handleMinimize} onClose={handleClose} />
-      <ChatConversation messages={messages} />
-      <ChatInputArea onSend={handleSend} />
+      <ChatConversation/>
+      <ChatInputArea/>
     </CustomPaper>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Box, TextField, IconButton } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import styled from 'styled-components';
+import useStore from '../../../helpers/store';
 
 const StyledBox = styled(Box)`
     display: flex;
@@ -9,12 +10,18 @@ const StyledBox = styled(Box)`
     padding-right: 0;
 `;
 
-const ChatInputArea = ({ onSend }) => {
+const ChatInputArea = () => {
   const [message, setMessage] = useState('');
+  const chat = useStore((state) => state.chat);
+  const addMessage = useStore((state) => state.addMessage);
+
+  const isDisabled = !message.trim();
 
   const handleSend = () => {
-    if (message.trim()) {
-      onSend(message);
+    const trimmedMessage = message.trim();
+    if (trimmedMessage) {
+      chat(trimmedMessage);
+      addMessage("USER", trimmedMessage);
       setMessage('');
     }
   };
@@ -28,16 +35,22 @@ const ChatInputArea = ({ onSend }) => {
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         onKeyDown={(e) => {
-          if (e.key === 'Enter') {
+          if (e.key === 'Enter' && !isDisabled) {
             handleSend();
           }
         }}
       />
-      <IconButton color="primary" onClick={handleSend}>
-        <SendIcon 
-          sx={{ color: '#0c3e43' }} 
-          fontSize="large" 
-          style={{ backgroundColor: '#ffffff' }}
+      <IconButton
+        color="primary"
+        disabled={isDisabled}
+        onClick={handleSend}
+        sx={{
+          margin: '2px',
+          marginRight: '6px'
+        }}>
+        <SendIcon
+          color="primary"
+          fontSize="large"
         />
       </IconButton>
     </StyledBox>

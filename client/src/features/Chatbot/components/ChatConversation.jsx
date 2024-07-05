@@ -1,6 +1,8 @@
 import React from 'react';
 import { Box, Paper, Typography } from '@mui/material';
 import styled from 'styled-components';
+import useStore from '../../../helpers/store';
+import { setLocalStorage } from '../../../helpers/localstorage';
 
 const StyledBox = styled(Box)`
   display: flex;
@@ -27,10 +29,12 @@ const Message = styled(Typography)`
   word-wrap: break-word;
 `;
 
-const ChatConversation = ({ messages }) => {
+const ChatConversation = () => {
+  const { chat_history } = useStore();
+  setLocalStorage('chat_history', chat_history);
   return (
     <StyledBox>
-      {messages.map((msg, index) => (
+      {chat_history.map((chat, index) => (
         <Paper
           key={index}
           elevation={1}
@@ -38,12 +42,12 @@ const ChatConversation = ({ messages }) => {
             margin: 1,
             padding: 1,
             maxWidth: '70%',
-            alignSelf: msg.isUser ? 'flex-end' : 'flex-start',
-            backgroundColor: msg.isUser ? '#32757c' : '#ffffff',
-            color: msg.isUser ? '#ffffff' : '#000000',
+            alignSelf: chat.role === 'USER' ? 'flex-end' : 'flex-start',
+            backgroundColor: chat.role === 'USER' ? '#32757c' : '#ffffff',
+            color: chat.role === 'USER' ? '#ffffff' : '#000000',
           }}
         >
-          <Message>{msg.text}</Message>
+          <Message>{chat.message}</Message>
         </Paper>
       ))}
     </StyledBox>
