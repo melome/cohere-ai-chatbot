@@ -49,7 +49,7 @@ const ChatInputArea = () => {
           marginRight: '6px'
         }}>
         <SendIcon
-          color="primary"
+          color={isDisabled ? 'grey' : 'primary'}
           fontSize="large"
         />
       </IconButton>
