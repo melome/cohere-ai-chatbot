@@ -1,25 +1,26 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import MinimizeIcon from '@mui/icons-material/Minimize';
+import Delete from '@mui/icons-material/DeleteOutline';
 import styled from 'styled-components';
+import useStore from '../../../helpers/store';
 
 const StyledToolbar = styled(Toolbar)`
   background-color: #0c3e43;
 `
 
-const ChatbotHeader = ({ onMinimize, onClose }) => {
+const ChatbotHeader = () => {
+  const { reset } = useStore();
+  const onClose = () => {
+    reset();
+  }
   return (
     <AppBar position="static">
       <StyledToolbar>
         <Typography variant="h6" style={{ flexGrow: 1 }}>
           Cohere
         </Typography>
-        <IconButton edge="end" color="inherit" onClick={onMinimize}>
-          <MinimizeIcon />
-        </IconButton>
         <IconButton edge="end" color="inherit" onClick={onClose}>
-          <CloseIcon />
+          <Delete />
         </IconButton>
       </StyledToolbar>
     </AppBar>
