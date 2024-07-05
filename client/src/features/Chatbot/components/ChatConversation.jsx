@@ -13,16 +13,6 @@ const StyledBox = styled(Box)`
   background-color: #f5f5f5;
   height: 300;
   max-height: 300;
-  '&::-webkit-scrollbar': {
-    width: '10px',
-  },
-  '&::-webkit-scrollbar-thumb': {
-    background: '#888',
-    borderRadius: '10px',
-  },
-  '&::-webkit-scrollbar-thumb:hover': {
-    background: '#555',
-  },
 `;
 
 const Message = styled(Typography)`
@@ -37,14 +27,18 @@ const ChatConversation = () => {
       {chat_history.map((chat, index) => (
         <Paper
           key={index}
-          elevation={1}
+          elevation={0}
           sx={{
             margin: 1,
-            padding: 1,
-            maxWidth: '70%',
+            padding: 1.5,
+            paddingLeft: 2,
+            paddingRight: 2,
+            borderRadius: 3,
+            maxWidth: '60%',
+            textAlign: chat.role === 'USER' ? 'right' : 'left',
             alignSelf: chat.role === 'USER' ? 'flex-end' : 'flex-start',
             backgroundColor: chat.role === 'USER' ? '#32757c' : '#ffffff',
-            color: chat.role === 'USER' ? '#ffffff' : '#000000',
+            color: chat.role === 'USER' ? '#ffffff' : '#32757c',
           }}
         >
           <Message>{chat.message}</Message>
